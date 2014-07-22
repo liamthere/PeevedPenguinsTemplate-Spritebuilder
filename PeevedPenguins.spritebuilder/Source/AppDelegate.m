@@ -52,7 +52,7 @@
     // Do any extra configuration of Cocos2d here (the example line changes the pixel format for faster rendering, but with less colors)
     //[cocos2dSetup setObject:kEAGLColorFormatRGB565 forKey:CCConfigPixelFormat];
     
-    [self setupCocos2dWithOptions:cocos2dSetup];
+    [self setupCocos2dWithOptions:cocos2dSetup];    
     
     [CCBReader load:@"Penguin"];
     [CCBReader load:@"Seal"];
