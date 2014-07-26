@@ -8,11 +8,11 @@
 
 #import "Gameplay.h"
 
-@implementation Gameplay
+@implementation Gameplay {
 
 CCPhysicsNode *_physicsNode;
 CCNode *_catapultArm;
-
+}
 // is called when CCB file has completed loading
 - (void)didLoadFromCCB {
     // tell this scene to accept touches
