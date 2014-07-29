@@ -34,6 +34,10 @@
     // nothing shall collide with our invisible nodes
     _pullbackNode.physicsBody.collisionMask = @[];
     _mouseJointNode.physicsBody.collisionMask = @[];
+    
+    _physicsNode.collisionDelegate = self;
+    
+    self.physicsBody.collisionType = @"seal";
 }
 
 // called on every touch in this scene
