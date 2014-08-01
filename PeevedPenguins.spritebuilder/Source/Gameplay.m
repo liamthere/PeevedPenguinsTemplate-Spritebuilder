@@ -20,6 +20,7 @@
     CCPhysicsJoint *_mouseJoint;
     CCNode *_currentPenguin;
     CCPhysicsJoint *_penguinCatapultJoint;
+    CCAction *_followPenguin;
 }
 
 // is called when CCB file has completed loading
@@ -96,6 +97,10 @@
         [_mouseJoint invalidate];
         _mouseJoint = nil;
     }
+    // follow the flying penguin
+
+    _followPenguin = [CCActionFollow actionWithTarget:_currentPenguin worldBoundary:self.boundingBox];
+    [_contentNode runAction:_followPenguin];
 }
 
 -(void) touchEnded:(UITouch *)touch withEvent:(UIEvent *)event
@@ -159,4 +164,37 @@
     // finally, remove the destroyed seal
     [seal removeFromParent];
 }
+
+- (void)update:(CCTime)delta
+{
+    static const float MIN_SPEED = 5.f;
+    // if speed is below minimum speed, assume this attempt is over
+    if (ccpLength(_currentPenguin.physicsBody.velocity) < MIN_SPEED){
+        [self nextAttempt];
+        return;
+    }
+    
+    int xMin = _currentPenguin.boundingBox.origin.x;
+    
+    if (xMin < self.boundingBox.origin.x) {
+        [self nextAttempt];
+        return;
+    }
+    
+    int xMax = xMin + _currentPenguin.boundingBox.size.width;
+    
+    if (xMax > (self.boundingBox.origin.x + self.boundingBox.size.width)) {
+        [self nextAttempt];
+        return;
+    }
+}
+
+- (void)nextAttempt {
+    _currentPenguin = nil;
+    [_contentNode stopAction:_followPenguin];
+    
+    CCActionMoveTo *actionMoveTo = [CCActionMoveTo actionWithDuration:1.f position:ccp(0, 0)];
+    [_contentNode runAction:actionMoveTo];
+}
+
 @end
