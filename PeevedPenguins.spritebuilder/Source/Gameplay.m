@@ -168,9 +168,10 @@
     [seal removeFromParent];
 }
 
-static const float MIN_SPEED = 5.f;
+
 - (void)update:(CCTime)delta
 {
+static const float MIN_SPEED = 5.f;
     if (_currentPenguin.launched)
     {
         
